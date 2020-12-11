@@ -1,0 +1,94 @@
+create table customer
+(
+CustomerID int primary key identity (1,1),
+FirstName varchar(50),
+LastName varchar (50),
+Age int,
+City varchar (50)
+)
+Insert into dbo.customer
+(FirstName, LastName, [Age], City)
+Values ('Zain', 'Ali', 21, 'Miami')
+Insert into dbo.customer
+(FirstName, LastName, [Age], City)
+Values ('Ron', 'Brody', 22, 'Springfield')
+Insert into dbo.customer
+(FirstName, LastName, [Age], City)
+Values ('Daniel', 'Eisen', 18, 'New York')
+create table products
+(
+ProductID int primary key identity (1,1),
+ProductName varchar(50),
+Price float, 
+)
+Insert into dbo.products
+(ProductName, Price)
+Values ('Bat', 4.5)
+Insert into dbo.products
+(ProductName, Price)
+Values ('Baseball', 1.5)
+
+create table orders
+(
+OrderID int primary key identity(1,1),
+Customer_ID int foreign key references customer(CustomerID),
+Orderdate datetime
+)
+Insert into dbo.orders
+(Customer_ID, Orderdate )
+Values (2, GetDate())
+Insert into dbo.orders
+(Customer_ID, Orderdate )
+Values (3, GetDate())
+Insert into dbo.orders
+(Customer_ID, Orderdate )
+Values (2, GetDate())
+Insert into dbo.orders
+(Customer_ID, Orderdate )
+Values (1, GetDate())
+select * from orders
+create table purchases
+(
+purchase_id int primary key identity(1,1),
+order_id int,
+product_id int,
+customer_id int,
+foreign key(order_id) references orders(OrderId),
+foreign key(product_id) references products(ProductID)
+)
+Insert into dbo.purchases
+(customer_id, order_id, product_id)
+Values (2, 1, 2)
+Insert into dbo.purchases
+(customer_id, order_id, product_id)
+Values (2, 1, 2)
+Insert into dbo.purchases
+(customer_id, order_id, product_id)
+Values (3, 2, 1)
+Insert into dbo.purchases
+(customer_id, order_id, product_id)
+Values (2, 3, 2)
+Insert into dbo.purchases
+(customer_id, order_id, product_id)
+Values (2, 3, 1)
+Insert into dbo.purchases
+(customer_id, order_id, product_id)
+Values (2, 3, 1)
+Insert into dbo.purchases
+(customer_id, order_id, product_id)
+Values (1, 4, 2)
+Insert into dbo.purchases
+(customer_id, order_id, product_id)
+Values (1, 4, 1)
+select orders.OrderID, orders.Orderdate, customer.FirstName, customer.LastName, customer.Age, customer.City 
+from orders
+inner join Customer on orders.customer_ID = customer.CustomerID
+select customer.FirstName, customer.LastName, customer.Age, customer.City, purchases.purchase_id, orders.OrderID, orders.Orderdate, products.Price, products.ProductName from purchases
+inner join Products on purchases.product_id = Products.productID
+inner join orders on purchases.order_id = orders.OrderID
+inner join customer on purchases.customer_id = customer.customerID
+Select customer.LastName, sum(products.Price) Total
+from purchases
+inner join Products on purchases.product_id = Products.productID
+inner join customer on purchases.customer_id = customer.customerID
+group by customer.LastName
