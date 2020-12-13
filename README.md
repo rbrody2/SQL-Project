@@ -17,5 +17,7 @@ I then created a relational scheme to relate all of my tables. As you can see I 
 ![relational](https://user-images.githubusercontent.com/74119720/102001217-64a5b900-3cbd-11eb-9b13-6967ddd9ce98.png)
 By creating the ER diagram and relational schema, I was able to create my purchases table which relates all of my tables together. As you can see I have the purchase_id as the primary key and this table also include the order_id, the product_id and the customer_id. I joined the customer table with this table through the CustomerID column of the customer table and the customer_id column of the purchases table. I also joined the orders table with this table through the OrderID column of the orders table and the order_id column of the purchases tables. Lastly, I joined the product table with this table through the ProductID column of the products table and the product_id column of the purchases table. As you can see, there are 4 orders and order 1 has two products purchases by Ron Brody where he bought two baseballs.  
 ![purchases](https://user-images.githubusercontent.com/74119720/102001221-6c655d80-3cbd-11eb-8c8d-ac44599358d2.png)
+
 My last task was to find which customer spent the most money. I grouped the customers by LastName and found that Brody spent the most money with 13.5 dollars. 
+
 ![total last name](https://user-images.githubusercontent.com/74119720/102001212-62435f00-3cbd-11eb-9b0b-c79e25051749.png)
